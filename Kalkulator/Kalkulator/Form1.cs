@@ -23,15 +23,10 @@ namespace Kalkulator
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void button_Click(object sender, EventArgs e)
         {
             currentCalculation += (sender as Button).Text;
-            .Text = currentCalculation;
+            textBoxOutput.Text = currentCalculation;
         }
     }
 }
