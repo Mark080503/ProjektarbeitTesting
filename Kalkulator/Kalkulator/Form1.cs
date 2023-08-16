@@ -41,7 +41,7 @@ namespace Kalkulator
             catch (Exception ex)
             {
                 textBoxOutput.Text = "0";
-                currentCalculation = "";
+                currentCalculation = null;
             }
         }
 
