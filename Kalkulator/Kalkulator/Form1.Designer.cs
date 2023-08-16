@@ -300,6 +300,7 @@
             this.textBoxOutput.Name = "textBoxOutput";
             this.textBoxOutput.Size = new System.Drawing.Size(318, 31);
             this.textBoxOutput.TabIndex = 0;
+            this.textBoxOutput.Text = "0";
             this.textBoxOutput.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // Form1
