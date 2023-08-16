@@ -63,7 +63,7 @@
             this.buttonClear.TabIndex = 0;
             this.buttonClear.Text = "C";
             this.buttonClear.UseVisualStyleBackColor = false;
-            this.buttonClear.Click += new System.EventHandler(this.button_Click);
+            this.buttonClear.Click += new System.EventHandler(this.button_Clear_Click);
             // 
             // button7
             // 
@@ -163,7 +163,7 @@
             this.buttonClearEntry.TabIndex = 5;
             this.buttonClearEntry.Text = "CE";
             this.buttonClearEntry.UseVisualStyleBackColor = false;
-            this.buttonClearEntry.Click += new System.EventHandler(this.button_Click);
+            this.buttonClearEntry.Click += new System.EventHandler(this.button_ClearEntry_Click);
             // 
             // buttonAddition
             // 
@@ -231,7 +231,7 @@
             this.buttonEquals.TabIndex = 19;
             this.buttonEquals.Text = "=";
             this.buttonEquals.UseVisualStyleBackColor = false;
-            this.buttonEquals.Click += new System.EventHandler(this.button_Click);
+            this.buttonEquals.Click += new System.EventHandler(this.button_Equals_Click);
             // 
             // buttonSubtraction
             // 
@@ -306,7 +306,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 571);
+            this.ClientSize = new System.Drawing.Size(617, 571);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonEquals);
             this.Controls.Add(this.buttonSubtraction);

@@ -28,5 +28,37 @@ namespace Kalkulator
             currentCalculation += (sender as Button).Text;
             textBoxOutput.Text = currentCalculation;
         }
+        
+        private void button_Equals_Click(object sender, EventArgs e)
+        {
+            string formattedCalculation = currentCalculation.ToString().Replace("X", "*");
+
+            try
+            {
+                textBoxOutput.Text = new DataTable().Compute(formattedCalculation, null).ToString();
+                currentCalculation = textBoxOutput.Text;
+            }
+            catch (Exception ex)
+            {
+                textBoxOutput.Text = "0";
+                currentCalculation = "";
+            }
+        }
+
+        private void button_Clear_Click(object sender, EventArgs e)
+        {
+            textBoxOutput.Text = "0";
+            currentCalculation = "";
+        }
+
+        private void button_ClearEntry_Click(object sender, EventArgs e)
+        {
+            if (currentCalculation.Length > 0)
+            {
+                currentCalculation = currentCalculation.Remove(currentCalculation.Length - 1, 1);
+            }
+
+            textBoxOutput.Text = currentCalculation;
+        }
     }
 }
