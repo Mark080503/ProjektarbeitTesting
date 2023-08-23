@@ -28,22 +28,38 @@ namespace Kalkulator
             currentCalculation += (sender as Button).Text;
             textBoxOutput.Text = currentCalculation;
         }
-        
+
         private void button_Equals_Click(object sender, EventArgs e)
         {
-            string formattedCalculation = currentCalculation.ToString().Replace("X", "*");
+            string formattedCalculation = currentCalculation.Replace("X", "*");
 
             try
             {
-                textBoxOutput.Text = new DataTable().Compute(formattedCalculation, null).ToString();
+                double result = Convert.ToDouble(new DataTable().Compute(formattedCalculation, null));
+
+                // Check if the result is within the displayable range
+                if (Math.Abs(result) > double.MaxValue)
+                {
+                    textBoxOutput.Text = "0"; // Set to 0 if result is too large
+                }
+                else
+                {
+                    // Format the result based on whether it has decimal places or not
+                    string formattedResult = result % 1 == 0 ? result.ToString("0") : result.ToString("0.##");
+                    textBoxOutput.Text = formattedResult;
+                }
+
                 currentCalculation = textBoxOutput.Text;
             }
             catch (Exception ex)
             {
                 textBoxOutput.Text = "0";
-                currentCalculation = null;
+                currentCalculation = "";
             }
         }
+
+
+
 
         private void button_Clear_Click(object sender, EventArgs e)
         {
