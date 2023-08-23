@@ -32,6 +32,7 @@ namespace PrototypeWPF
             public string EintragsDatum { get; set; }
         }
 
+
         public ObservableCollection<Item> Items { get; set; }
 
         public MainWindow()
@@ -45,50 +46,18 @@ namespace PrototypeWPF
             };
             DataContext = this;
         }
-
-        private ObservableCollection<Item> ReadExcelFile(string filePath)
+        private ObservableCollection<Item> ReadCsvFile(string filePath)
         {
             var data = new ObservableCollection<Item>();
-
-            using (var package = new ExcelPackage(new FileInfo(filePath)))
-            {
-                var worksheet = package.Workbook.Worksheets[0];
-                for (int row = 2; row <= worksheet.Dimension.Rows; row++)
-                {
-                    data.Add(new Item
-                    {
-                        AuftragsNr01 = Convert.ToInt32(worksheet.Cells[row, 1].Value),
-                        AuftragsNr02 = Convert.ToInt32(worksheet.Cells[row, 2].Value),
-                        ArtikelNrSPNr = Convert.ToInt64(worksheet.Cells[row, 3].Value),
-                        Kunde = worksheet.Cells[row, 4].Value.ToString(),
-                        Artikelbezeichnung = worksheet.Cells[row, 5].Value.ToString(),
-                        Zeichnungsnummer = worksheet.Cells[row, 6].Value.ToString(),
-                        Arbeitsauftrag = worksheet.Cells[row, 7].Value.ToString()
-                    });
-                }
-            }
-
-            return data;
-        }
-
-        private void LoadDataIntoDataGrid(string filePath)
-        {
-            Items.Clear(); // Clear any existing data
 
             var lines = File.ReadAllLines(filePath);
             if (lines.Length < 2)
             {
-                return; // No data or only header row
+                return data; // No data or only header row
             }
 
             var columnTitles = lines[0].Split(',');
 
-            // Print column titles for debugging
-            Debug.WriteLine("Column Titles:");
-            foreach (var title in columnTitles)
-            {
-                Debug.WriteLine(title);
-            }
             for (int i = 1; i < lines.Length; i++)
             {
                 var values = lines[i].Split(',');
@@ -96,17 +65,76 @@ namespace PrototypeWPF
 
                 for (int j = 0; j < columnTitles.Length; j++)
                 {
-                    var property = typeof(Item).GetProperty(columnTitles[j]);
-                    if (property != null && values.Length > j)
+                    var value = values[j];
+
+                    switch (j)
                     {
-                        var value = values[j];
-                        property.SetValue(newItem, value);
+                        case 0:
+                            newItem.AuftragsNr01 = int.TryParse(value, out int auftragsNr01) ? auftragsNr01 : 0;
+                            break;
+                        case 1:
+                            newItem.AuftragsNr02 = int.TryParse(value, out int auftragsNr02) ? auftragsNr02 : 0;
+                            break;
+                        case 2:
+                            newItem.ArtikelNrSPNr = long.TryParse(value, out long artikelNrSPNr) ? artikelNrSPNr : 0;
+                            break;
+                        case 3:
+                            newItem.Charge = value;
+                            break;
+                        case 4:
+                            newItem.Kunde = value;
+                            break;
+                        case 5:
+                            newItem.Artikelbezeichnung = value;
+                            break;
+                        case 6:
+                            newItem.Zeichnungsnummer = value;
+                            break;
+                        case 7:
+                            newItem.Arbeitsauftrag = value;
+                            break;
+                        case 8:
+                            newItem.AnzahlTeile = int.TryParse(value, out int anzahlTeile) ? anzahlTeile : 0;
+                            break;
+                        case 9:
+                            newItem.MessBericht = value == "x";
+                            break;
+                        case 10:
+                            newItem.MFU = value == "x";
+                            break;
+                        case 11:
+                            newItem.PFU = value == "x";
+                            break;
+                        case 12:
+                            newItem.MSA = value == "x";
+                            break;
+                        case 13:
+                            newItem.Prio = value == "x";
+                            break;
+                        case 14:
+                            newItem.EintragsDatum = value;
+                            break;
                     }
                 }
 
-                Items.Add(newItem);
+                data.Add(newItem);
             }
+
+            return data;
         }
+
+
+
+
+        private void LoadDataIntoDataGrid(string filePath)
+        {
+            Items.Clear(); // Clear any existing data
+            Items = ReadCsvFile(filePath); // Load new data
+
+            // Set the ItemsSource of the DataGrid
+            MainData.ItemsSource = Items;
+        }
+
 
 
 
@@ -157,8 +185,10 @@ namespace PrototypeWPF
 
         private void Button_LoadExcel_Click(object sender, RoutedEventArgs e)
         {
+            ReadCsvFile("C:\\Users\\m.rojc\\Desktop\\Auftragsliste Messtechnik TESTING.csv");
             LoadDataIntoDataGrid("C:\\Users\\m.rojc\\Desktop\\Auftragsliste Messtechnik TESTING.csv");
         }
+
 
         private void Button_SaveToExcel_Click(object sender, RoutedEventArgs e)
         {
