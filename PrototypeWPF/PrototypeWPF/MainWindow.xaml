@@ -24,7 +24,7 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="Navigation Menu" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"/>
-            <Button Grid.Row="1" Content="Tab 1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="68" FontSize="30" Width="185" Margin="0,92,0,0" Click="Button_Tab1_Click"/>
+            <Button Grid.Row="1" Content="Tab 1" HorizontalAlignment="Center" VerticalAlignment="Top" Height="68" FontSize="30" Width="184" Margin="0,97,0,0" Click="Button_Tab1_Click"/>
             <Button Grid.Row="1" Content="Tab 2" HorizontalAlignment="Center" VerticalAlignment="Top" Height="68" FontSize="30" Width="185" Margin="0,165,0,0" Click="Button_Tab2_Click"/>
             <Button Grid.Row="1" Content="Tab 3" HorizontalAlignment="Center" VerticalAlignment="Top" Height="68" FontSize="30" Width="185" Margin="0,238,0,0" Click="Button_Tab3_Click"/>
             <Button Grid.Row="1" Content="Load Data" HorizontalAlignment="Center" VerticalAlignment="Top" Height="68" FontSize="30" Width="185" Margin="0,311,0,0" Click="Button_LoadExcel_Click"/>
